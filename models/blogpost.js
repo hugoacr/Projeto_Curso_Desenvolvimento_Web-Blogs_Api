@@ -1,12 +1,6 @@
 const { DataTypes } = require('sequelize');
 
 const Attributes = {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    autoIncrement: true,
-  },
   title: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -26,7 +20,7 @@ const Attributes = {
   },
   updated: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
   },
 };
 
@@ -35,14 +29,14 @@ module.exports = (sequelize) => {
     'BlogPost',
     Attributes,
     {
-      underscored: true,
+      // underscored: true,
       timestamps: false,
       tableName: 'BlogPosts',
     },
   );
 
   BlogPost.associate = (models) => {
-    BlogPost.belongsTo(models.User, { foreignKey: 'user_id', as: 'User' });
+    BlogPost.belongsTo(models.User, { foreignKey: 'userId', as: 'User' });
   };
   return BlogPost;
 };

@@ -1,12 +1,6 @@
 const { DataTypes } = require('sequelize');
 
 const Attributes = {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    autoIncrement: true,
-  },
   displayName: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -30,7 +24,7 @@ module.exports = (sequelize) => {
     'User',
     Attributes,
     {
-      underscored: true,
+      // underscored: true,
       timestamps: false,
       tableName: 'Users',
     },

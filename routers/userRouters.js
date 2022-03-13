@@ -1,15 +1,21 @@
 const express = require('express');
 const userControllers = require('../controllers/userControllers');
-const { validateEmail, validatePassword, validateDisplayName } = require('../middlewares');
+const middleware = require('../middlewares');
 
 const router = express.Router();
 
 router.post(
   '/',
-  validateDisplayName,
-  validateEmail,
-  validatePassword,
+  middleware.validateDisplayName,
+  middleware.validateEmail,
+  middleware.validatePassword,
   userControllers.create,
+);
+
+router.get(
+  '/',
+  middleware.authorizationToken,
+  userControllers.getAll,
 );
 
 module.exports = router;

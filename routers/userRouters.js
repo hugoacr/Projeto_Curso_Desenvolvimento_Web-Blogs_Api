@@ -18,4 +18,10 @@ router.get(
   userControllers.getAll,
 );
 
+router.get(
+  '/:id',
+  middleware.authorizationToken,
+  userControllers.getById,
+);
+
 module.exports = router;

@@ -10,4 +10,10 @@ router.post(
   categorieControllers.create,
 );
 
+router.get(
+  '/',
+  middleware.authorizationToken,
+  categorieControllers.getAll,
+);
+
 module.exports = router;

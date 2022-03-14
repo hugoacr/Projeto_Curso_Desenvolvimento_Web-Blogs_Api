@@ -30,4 +30,11 @@ router.put(
   postControllers.update,
 );
 
+router.delete(
+  '/:id',
+  middleware.validatePostUpdate,
+  middleware.authorizationToken,
+  postControllers.clear,
+);
+
 module.exports = router;

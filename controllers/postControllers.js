@@ -45,9 +45,22 @@ const update = async (req, res, next) => {
   }
 };
 
+const clear = async (req, res, next) => {
+  try {
+      const { tokenData } = req;
+      const { id } = req.params;
+      const { code, response } = await postServices
+      .clear({ postId: id, tokenData });
+      return res.status(code).json(response);
+  } catch (error) {
+      next(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  clear,
 };

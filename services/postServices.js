@@ -66,9 +66,23 @@ const update = async ({ postId, title, content, tokenData }) => {
   return { code: 200, response: postById };
 };
 
+const clear = async ({ postId, tokenData }) => {
+  const validateClear = await BlogPost.findByPk(postId);
+  if (!validateClear) {
+    return { code: 404, response: { message: 'Post does not exist' } }; 
+  }
+  if (validateClear.dataValues.userId !== tokenData.id) {
+    return { code: 401, response: { message: 'Unauthorized user' } };
+  }
+
+  await BlogPost.destroy({ where: { id: postId } });
+  return { code: 204, response: {} };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  clear,
 };

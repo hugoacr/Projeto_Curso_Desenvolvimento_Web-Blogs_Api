@@ -11,4 +11,10 @@ router.post(
   postControllers.create,
 );
 
+router.get(
+  '/',
+  middleware.authorizationToken,
+  postControllers.getAll,
+);
+
 module.exports = router;

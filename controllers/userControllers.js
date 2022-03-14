@@ -29,8 +29,20 @@ const getById = async (req, res, next) => {
     }
 };
 
+const clear = async (req, res, next) => {
+    try {
+        const { tokenData } = req;
+        const { code, response } = await userServices
+        .clear({ tokenData });
+        return res.status(code).json(response);
+    } catch (error) {
+        next(error);
+    }
+  };
+
 module.exports = {
     create,
     getAll,
     getById,
+    clear,
 };

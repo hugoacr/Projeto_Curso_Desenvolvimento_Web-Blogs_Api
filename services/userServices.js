@@ -29,8 +29,14 @@ const getById = async (userId) => {
   return { code: 200, response: userById };
 };
 
+const clear = async ({ tokenData }) => {
+  await User.destroy({ where: { id: tokenData.id } });
+  return { code: 204, response: {} };
+};
+
   module.exports = {
     create,
     getAll,
     getById,
+    clear,
   };

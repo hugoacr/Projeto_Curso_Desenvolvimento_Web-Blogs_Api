@@ -24,4 +24,11 @@ router.get(
   userControllers.getById,
 );
 
+router.delete(
+  '/me',
+  middleware.validatePostUpdate,
+  middleware.authorizationToken,
+  userControllers.clear,
+);
+
 module.exports = router;

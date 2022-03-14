@@ -4,6 +4,7 @@ const express = require('express');
 const loginRouters = require('./routers/loginRouters');
 const categorieRouters = require('./routers/categorieRouters');
 const userRouters = require('./routers/userRouters');
+const postRouters = require('./routers/postRouters');
 
 const middlewares = require('./middlewares');
 
@@ -17,6 +18,8 @@ app.use('/login', loginRouters);
 app.use('/user', userRouters);
 
 app.use('/categories', categorieRouters);
+
+app.use('/post', postRouters);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

@@ -3,6 +3,7 @@ const validatePassword = require('./validatePassword');
 const errorHandler = require('./errorHandler');
 const validateDisplayName = require('./validateDisplayName');
 const authorizationToken = require('./authorizationToken');
+const validatePost = require('./validatePost');
 
 module.exports = {
   validateEmail,
@@ -10,4 +11,5 @@ module.exports = {
   errorHandler,
   validateDisplayName,
   authorizationToken,
+  validatePost,
 };

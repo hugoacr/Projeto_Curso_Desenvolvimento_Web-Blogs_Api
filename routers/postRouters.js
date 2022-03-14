@@ -17,4 +17,10 @@ router.get(
   postControllers.getAll,
 );
 
+router.get(
+  '/:id',
+  middleware.authorizationToken,
+  postControllers.getById,
+);
+
 module.exports = router;

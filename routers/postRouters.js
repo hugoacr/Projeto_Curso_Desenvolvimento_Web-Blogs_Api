@@ -23,4 +23,11 @@ router.get(
   postControllers.getById,
 );
 
+router.put(
+  '/:id',
+  middleware.validatePostUpdate,
+  middleware.authorizationToken,
+  postControllers.update,
+);
+
 module.exports = router;

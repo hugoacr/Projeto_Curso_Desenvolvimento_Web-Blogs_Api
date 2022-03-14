@@ -30,22 +30,45 @@ const getAll = async () => {
   return { code: 200, response: postList };
 };
 
-const getById = async (userId) => {  
-  const userById = await BlogPost.findOne({
-    where: { id: userId },
+const getById = async (postId) => {  
+  const postById = await BlogPost.findOne({
+    where: { id: postId },
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Categorie, as: 'categories', through: { attributes: [] } },
     ],
   });
-  if (!userById) {
+  if (!postById) {
     return { code: 404, response: { message: 'Post does not exist' } }; 
   }
-  return { code: 200, response: userById };
+  return { code: 200, response: postById };
+};
+
+const update = async ({ postId, title, content, tokenData }) => {
+  const validateUser = await BlogPost.findByPk(postId);
+  if (validateUser.userId !== tokenData.id) {
+    return { code: 401, response: { message: 'Unauthorized user' } };
+  }
+  await BlogPost.update(
+    { title,
+    content,
+    updated: new Date() },
+    { where: { id: postId } },
+  );
+
+  const postById = await BlogPost.findOne({
+    where: { id: postId },
+    attributes: { exclude: ['id', 'published', 'updated'] },
+    include: [
+      { model: Categorie, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { code: 200, response: postById };
 };
 
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };

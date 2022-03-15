@@ -18,6 +18,12 @@ router.get(
 );
 
 router.get(
+  '/search',
+  middleware.authorizationToken,
+  postControllers.getByQueryParam,
+);
+
+router.get(
   '/:id',
   middleware.authorizationToken,
   postControllers.getById,

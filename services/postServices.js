@@ -79,10 +79,27 @@ const clear = async ({ postId, tokenData }) => {
   return { code: 204, response: {} };
 };
 
+const getByQueryParam = async (queryParam) => {
+  console.log(queryParam);
+  if (!queryParam) return getAll();
+  const postList = await BlogPost.findAll({
+    where: { [Op.or]: [
+      { title: { [Op.substring]: queryParam } },
+      { content: { [Op.substring]: queryParam } },
+    ] },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categorie, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { code: 200, response: postList };
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
   clear,
+  getByQueryParam,
 };
